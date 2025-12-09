@@ -36,7 +36,7 @@ class MainWindow(QMainWindow):
         greeting_button.clicked.connect(self.get_greeting)
 
         # label to greet user
-        greeting = "Hey. Enter your name and then press that button"
+        greeting = "Hey. Enter your name and press that button"
         self.greeting_label = QLabel(greeting)
         
         # clear push button 
@@ -53,13 +53,13 @@ class MainWindow(QMainWindow):
                 layout? then input? idk :?
         """
 
-
         # add widgets & layouts to main layout
         layout.addWidget(title_label)
         layout.addWidget(self.name_input)
         # put the hbox layout here...
         layout.addWidget(greeting_button)
         layout.addWidget(self.greeting_label)
+        layout.addWidget(clear_button)
 
         # [OPTIONAL] Add a stretch to move everything up
         layout.addStretch()
@@ -77,6 +77,14 @@ class MainWindow(QMainWindow):
         username = self.name_input.text()
         greeting = f"Hiii {username}!!! Hihihihi!!!!!!!"
         self.greeting_label.setText(greeting)
+
+    def clear_text(self):
+        # reset inputs
+        self.name_input.clear()
+        greeting = "Hey. Enter your name and press that button"
+        self.greeting_label.setText(greeting)
+
+
 
 
 if __name__ == "__main__":

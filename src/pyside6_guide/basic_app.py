@@ -31,12 +31,17 @@ class MainWindow(QMainWindow):
         self.name_input = QLineEdit()
         self.name_input.setPlaceholderText("Name goes here")
 
+        # input for silliness
+        self.silly_input = QLineEdit()
+        self.silly_input.setPlaceholderText("How silly are you out of 10")
+
+
         # push button greeting
         greeting_button = QPushButton("Get greeting")
         greeting_button.clicked.connect(self.get_greeting)
 
         # label to greet user
-        greeting = "Hey. Enter your name and press that button"
+        greeting = "Hey. Enter your name and silliness and press that button"
         self.greeting_label = QLabel(greeting)
         
         # clear push button 
@@ -56,6 +61,7 @@ class MainWindow(QMainWindow):
         # add widgets & layouts to main layout
         layout.addWidget(title_label)
         layout.addWidget(self.name_input)
+        layout.addWidget(self.silly_input)
         # put the hbox layout here...
         layout.addWidget(greeting_button)
         layout.addWidget(self.greeting_label)
@@ -74,14 +80,16 @@ class MainWindow(QMainWindow):
 
     def get_greeting(self):
         # get users name and greet them with it
-        username = self.name_input.text()
-        greeting = f"Hiii {username}!!! Hihihihi!!!!!!!"
+        name = self.name_input.text()
+        silliness = self.silly_input.text()
+        greeting = f"Hiii {name}!!! You are a {silliness} out of 10 on the silliness scale!"
         self.greeting_label.setText(greeting)
 
     def clear_text(self):
         # reset inputs
         self.name_input.clear()
-        greeting = "Hey. Enter your name and press that button"
+        self.silly_input.clear()
+        greeting = "Woah! Where'd the text go?"
         self.greeting_label.setText(greeting)
 
 

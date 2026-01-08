@@ -108,13 +108,21 @@ class MainWindow(QMainWindow):
         # calculate
         spinbox_num = self.age_spinbox.value()
         doublebox_num = self.double_spinbox.value()
-        crazy_number = (spinbox_num * (doublebox_num * 2)) / 7
-        print(f"Here's your crazy number: {crazy_number}")
+        if spinbox_num == 1 or doublebox_num == 0.00:
+            print("You have to change the numbers first!")
+        else:
+            crazy_number = (spinbox_num * (doublebox_num * 2)) / 7
+            print(f"Here's your crazy number: {crazy_number}")
 
     def clear_text(self):
         # reset inputs
-        self.age_spinbox.setValue(1)
-        self.double_spinbox.setValue(0.00)
+        spinbox_num = self.age_spinbox.value()
+        doublebox_num = self.double_spinbox.value()
+        if spinbox_num == 1 and doublebox_num == 0.00:
+            print("You want me to reset nothing?")
+        else:
+            self.age_spinbox.setValue(1)
+            self.double_spinbox.setValue(0.00)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

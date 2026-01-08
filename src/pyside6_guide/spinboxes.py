@@ -1,6 +1,6 @@
 """
 spinboxes.py
-by HundredVisionsGuy
+by iridiumJester
 A demo of the two main types of spinboxes
 """
 
@@ -11,6 +11,9 @@ from PySide6.QtWidgets import (
     QMainWindow,
     QVBoxLayout,
     QWidget,
+    QHBoxLayout,
+    QSpinBox,
+    QDoubleSpinBox,
 )
 
 
@@ -38,8 +41,28 @@ class MainWindow(QMainWindow):
         self.instructions_label.setWordWrap(True)
 
         # TODO: Create An HBox Layout with a QSpinBox that gets a whole number
+        age_input_hbox = QHBoxLayout()
+        age_label = QLabel("Age: ")
+        self.age_spinbox = QSpinBox()
 
-        # TODO: Create another HBox that gets a number with a decimal point
+        # set min and max number
+        self.age_spinbox.setMinimum(1)
+        self.age_spinbox.setMaximum(100)
+
+        # double spinbox yay
+        double_hbox = QHBoxLayout()
+        double_label = QLabel("Get Number: ")
+        self.double_spinbox = QDoubleSpinBox()
+        self.double_spinbox.setPrefix("$")
+        self.double_spinbox.setSingleStep(0.25)
+        self.double_spinbox.valueChanged.connect(self.value_changed)
+        self.double_spinbox.textChanged.connect(self.value_changed_str)
+
+        # label and button to above layouts
+        age_input_hbox.addWidget(age_label)
+        age_input_hbox.addWidget(self.age_spinbox)
+        double_hbox.addWidget(double_label)
+        double_hbox.addWidget(self.double_spinbox)
 
         # TODO: Add 2 buttons in an hbox: one for calculating & a clear button
 
@@ -56,6 +79,8 @@ class MainWindow(QMainWindow):
         """
 
         # add widgets & layouts to main layout
+        layout.addLayout(age_input_hbox)
+        layout.addLayout(double_hbox)
         layout.addWidget(self.instructions_label)
 
         # [OPTIONAL] Add a stretch to move everything up
@@ -67,6 +92,11 @@ class MainWindow(QMainWindow):
         # Set the central widget of the Window.
         self.setCentralWidget(widget)
 
+    def value_changed(self, value):
+        print(f"Value Changed: doublespinbox: {value} - spinbox: {self.age_spinbox.value}")
+
+    def value_changed_str(self, str_value):
+        print(f"Value Changed (as string): {str_value}")
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

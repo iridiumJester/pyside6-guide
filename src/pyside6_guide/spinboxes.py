@@ -28,11 +28,6 @@ class MainWindow(QMainWindow):
 
         layout = QVBoxLayout()
         title_label = QLabel("--- Spinbox experiment app ---")
-        self.instructions = "Put in your age and a dollar amount. Then click buttons."
-        self.instructions += " You get it."
-
-        self.instructions_label = QLabel(self.instructions)
-        self.instructions_label.setWordWrap(True)
 
         # Create An HBox Layout with a QSpinBox that gets a whole number
         age_input_hbox = QHBoxLayout()
@@ -71,8 +66,10 @@ class MainWindow(QMainWindow):
         process_hbox.addWidget(clear_button)
 
         # TODO: Create an output label to display the instructions and results
-
-        # TODO: Re-write the instructions to tell the user what to do.
+        self.instructions = "Put in your age and a dollar amount. Then click buttons."
+        self.instructions += " You get it."
+        self.instructions_label = QLabel(self.instructions)
+        self.instructions_label.setWordWrap(True)
 
         """
         Challenge: make a simple calculator app that uses 2 inputs.
@@ -109,20 +106,21 @@ class MainWindow(QMainWindow):
         spinbox_num = self.age_spinbox.value()
         doublebox_num = self.double_spinbox.value()
         if spinbox_num == 1 or doublebox_num == 0.00:
-            print("You have to change the numbers first!")
+            self.instructions_label.setText("You have to change the numbers first!")
         else:
             crazy_number = (spinbox_num * (doublebox_num * 2)) / 7
-            print(f"Here's your crazy number: {crazy_number}")
+            self.instructions_label.setText(f"Here's your crazy number: {crazy_number}")
 
     def clear_text(self):
         # reset inputs
         spinbox_num = self.age_spinbox.value()
         doublebox_num = self.double_spinbox.value()
         if spinbox_num == 1 and doublebox_num == 0.00:
-            print("You want me to reset nothing?")
+            self.instructions_label.setText("You want me to reset nothing?")
         else:
             self.age_spinbox.setValue(1)
             self.double_spinbox.setValue(0.00)
+            self.instructions_label.setText(self.instructions)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

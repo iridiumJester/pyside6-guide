@@ -14,6 +14,7 @@ from PySide6.QtWidgets import (
     QHBoxLayout,
     QSpinBox,
     QDoubleSpinBox,
+    QPushButton
 )
 
 
@@ -21,26 +22,19 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("Window Title")
+        self.setWindowTitle("Spinbox City")
         self.setContentsMargins(12, 12, 12, 12)
         self.resize(320, 240)
 
         layout = QVBoxLayout()
-        self.instructions = "Make an app that gets two different numbers: "
-        self.instructions += "a whole number (integer) and a number with "
-        self.instructions += "a decimal point (float). Put them each in "
-        self.instructions += "a horizontal layout, and add two buttons: "
-        self.instructions += "one that gets then displays the inputs, and "
-        self.instructions += "one that resets the inputs and displays these "
-        self.instructions += "instructions\n\n"
-        self.instructions += "Feel free to modify these instructions once "
-        self.instructions += "you are done. Make sure the isntructions are "
-        self.instructions += "clear to the user as to what they should do."
+        title_label = QLabel("--- Spinbox experiment app ---")
+        self.instructions = "Put in your age and a dollar amount. Then click buttons."
+        self.instructions += " You get it."
 
         self.instructions_label = QLabel(self.instructions)
         self.instructions_label.setWordWrap(True)
 
-        # TODO: Create An HBox Layout with a QSpinBox that gets a whole number
+        # Create An HBox Layout with a QSpinBox that gets a whole number
         age_input_hbox = QHBoxLayout()
         age_label = QLabel("Age: ")
         self.age_spinbox = QSpinBox()
@@ -58,13 +52,23 @@ class MainWindow(QMainWindow):
         self.double_spinbox.valueChanged.connect(self.value_changed)
         self.double_spinbox.textChanged.connect(self.value_changed_str)
 
-        # label and button to above layouts
+        # add widgets for above labels and inputs
         age_input_hbox.addWidget(age_label)
         age_input_hbox.addWidget(self.age_spinbox)
         double_hbox.addWidget(double_label)
         double_hbox.addWidget(self.double_spinbox)
 
         # TODO: Add 2 buttons in an hbox: one for calculating & a clear button
+        process_hbox = QHBoxLayout()
+        calc_button = QPushButton("Do something crazy")
+        calc_button.clicked.connect(self.calculate)
+
+        clear_button = QPushButton("Reset your numbers")
+        clear_button.clicked.connect(self.clear_text)
+
+        # add widgets
+        process_hbox.addWidget(calc_button)
+        process_hbox.addWidget(clear_button)
 
         # TODO: Create an output label to display the instructions and results
 
@@ -79,8 +83,10 @@ class MainWindow(QMainWindow):
         """
 
         # add widgets & layouts to main layout
+        layout.addWidget(title_label)
         layout.addLayout(age_input_hbox)
         layout.addLayout(double_hbox)
+        layout.addLayout(process_hbox)
         layout.addWidget(self.instructions_label)
 
         # [OPTIONAL] Add a stretch to move everything up
@@ -97,6 +103,18 @@ class MainWindow(QMainWindow):
 
     def value_changed_str(self, str_value):
         print(f"Value Changed (as string): {str_value}")
+
+    def calculate(self):
+        # calculate
+        spinbox_num = self.age_spinbox.value()
+        doublebox_num = self.double_spinbox.value()
+        crazy_number = (spinbox_num * (doublebox_num * 2)) / 7
+        print(f"Here's your crazy number: {crazy_number}")
+
+    def clear_text(self):
+        # reset inputs
+        self.age_spinbox.setValue(1)
+        self.double_spinbox.setValue(0.00)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

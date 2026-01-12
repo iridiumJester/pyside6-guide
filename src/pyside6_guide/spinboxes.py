@@ -122,7 +122,7 @@ class MainWindow(QMainWindow):
             self.instructions_label.setText(f"Here's your crazy number: {crazy_number}")
             if self.secret_quota < 4:
                 self.secret_quota += 1
-            else:
+            elif self.secret_quota == 4:
                 self.secret_button.show()
                 self.secret_quota += 1
 

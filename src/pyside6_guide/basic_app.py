@@ -35,7 +35,6 @@ class MainWindow(QMainWindow):
         self.silly_input = QLineEdit()
         self.silly_input.setPlaceholderText("How silly are you out of 10")
 
-
         # push button greeting
         greeting_button = QPushButton("Get greeting")
         greeting_button.clicked.connect(self.get_greeting)

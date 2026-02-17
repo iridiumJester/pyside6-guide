@@ -95,9 +95,6 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.instructions_label)
         layout.addLayout(secret_hbox)
 
-        # [OPTIONAL] Add a stretch to move everything up
-        layout.addStretch()
-
         widget = QWidget()
         widget.setLayout(layout)
 

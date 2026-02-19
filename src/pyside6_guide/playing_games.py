@@ -58,7 +58,7 @@ class MainWindow(QMainWindow):
         self.add_button.clicked.connect(self.add_new)
 
         self.edit_button = QPushButton("Update items")
-        # self.edit_button.clicked.connect(self.edit_items)
+        self.edit_button.clicked.connect(self.edit_items)
 
         self.shopping_list.setEditTriggers(QAbstractItemView.NoEditTriggers)
 
@@ -91,14 +91,33 @@ class MainWindow(QMainWindow):
             self.w.close()  # Close window.
             self.w = None
 
+    def edit_items(self, checked):
+        if self.w is None:
+            self.w = UpdateWindow()
+            self.w.show()
+        else:
+            self.w.close()  # Close window.
+            self.w = None
+
 class NewWindow(QWidget):
     def __init__(self):
         super().__init__()
 
         layout = QVBoxLayout()
-        self.label = QLabel("Another Window")
+        self.label = QLabel("Adding items...")
+        self.label.setStyleSheet('font-size: 20px;')
         layout.addWidget(self.label)
         self.setLayout(layout)
+
+class UpdateWindow(QWidget):
+    def __init__(self):
+        super().__init__()
+
+        layout = QVBoxLayout()
+        self.label = QLabel("Updating items...")
+        layout.addWidget(self.label)
+        self.setLayout(layout)
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
